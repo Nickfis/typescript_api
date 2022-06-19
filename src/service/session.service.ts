@@ -33,11 +33,9 @@ export async function reIssueAccessToken({
   if (!decoded || !get(decoded, "_id")) return false;
 
   const session = await SessionModel.findById(get(decoded, "session"));
-
   if (!session || !session.valid) return false;
 
   const user = await findUser({ _id: session.user });
-
   if (!user) return false;
 
   const accessToken = signJwt(
