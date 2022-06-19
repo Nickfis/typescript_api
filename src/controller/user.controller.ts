@@ -11,7 +11,6 @@ export const createUserHandler = async (
   res: Response
 ) => {
   try {
-    console.log("Running through create user handler");
     const { body } = req;
     if (body.password !== body.passwordConfirmation) {
       return res.status(403).json({ message: "Passwords don't match." });

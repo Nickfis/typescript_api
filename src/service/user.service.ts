@@ -1,3 +1,4 @@
+import { omit } from "lodash";
 import { DocumentDefinition } from "mongoose";
 import { string } from "zod";
 import UserModel, { UserDocument } from "../models/user.model";
@@ -26,4 +27,10 @@ export const validatePassword = async ({
   if (!user) {
     return false;
   }
+
+  const isValid = await user.comparePassword(password);
+
+  if (!isValid) return false;
+
+  return user;
 };

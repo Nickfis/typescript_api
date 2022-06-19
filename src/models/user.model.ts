@@ -10,7 +10,7 @@ export interface UserDocument extends mongoose.Document {
   comparePassword(candidatePassword: string): Promise<boolean>;
 }
 
-const userSchema = new mongoose.Schema({
+const userSchema = new mongoose.Schema<UserDocument>({
   email: { type: String, required: true, unique: true },
   name: { type: String, required: true },
   password: { type: String, required: true },
@@ -18,22 +18,22 @@ const userSchema = new mongoose.Schema({
   updatedAt: { type: Date, default: new Date() },
 });
 
-userSchema.methods.comparePassword = async (
+userSchema.methods.comparePassword = async function (
   candidatePassword: string
-): Promise<boolean> => {
+): Promise<boolean> {
   const user = this as unknown as UserDocument;
-
   try {
     const passwordsMatch = await bcrypt.compare(
       candidatePassword,
       user.password
     );
+    console.log({ passwordsMatch });
     return passwordsMatch;
   } catch (e) {
     return false;
   }
 };
 
-const UserModel = mongoose.model("User", userSchema);
+const UserModel = mongoose.model<UserDocument>("User", userSchema);
 
 export default UserModel;
