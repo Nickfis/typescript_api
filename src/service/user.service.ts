@@ -32,5 +32,5 @@ export const validatePassword = async ({
 
   if (!isValid) return false;
 
-  return user;
+  return omit(user.toJSON(), "password");
 };
