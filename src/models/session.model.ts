@@ -17,6 +17,6 @@ const sessionSchema = new mongoose.Schema({
   updatedAt: { type: Date, default: new Date() },
 });
 
-const SessionModel = mongoose.model("Session", sessionSchema);
+const SessionModel = mongoose.model<SessionDocument>("Session", sessionSchema);
 
 export default SessionModel;

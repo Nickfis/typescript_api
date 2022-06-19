@@ -30,7 +30,7 @@ export const createUserSessionHandler = async (req: Request, res: Response) => {
       ...user,
       session: session._id,
     },
-    { expiresIn: config.get("accessTokenTimeToLive") }
+    { expiresIn: config.get("refreshTokenTimeToLive") }
   );
 
   return res.send({ accessToken, refreshToken });
